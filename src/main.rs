@@ -3,12 +3,12 @@ use clap::Parser;
 use std::i64;
 use mongodb::{
     bson::doc,
+    bson::DateTime,
+    sync::Collection,
     sync::Client,
 };
-use mongodb::bson::DateTime;
-use mongodb::sync::Collection;
 use serde::{Deserialize, Serialize};
-use web3::types::{BlockId, BlockNumber};
+use web3::types::{BlockId, BlockNumber, U64};
 
 /// Ronin blockchain importer for MongoDB
 #[derive(Parser, Debug)]
@@ -25,9 +25,10 @@ struct Args {
     web3_hostname: String,
     /// Start Block
     #[clap(long, value_parser, default_value_t = 1)]
-    start_block: u32
-
-
+    start_block: u32,
+    /// Endblock
+    #[clap(long, value_parser, default_value_t = 0)]
+    end_block: u32
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -44,7 +45,11 @@ async fn scan(col: Collection<Transaction>, args: Args) -> web3::Result<()> {
     let web3 = web3::Web3::new(transport);
 
     let mut block= web3::types::U64::from(args.start_block);
-    let max_block = web3.eth().block_number().await.unwrap();
+    let mut max_block = if args.end_block == 0 {
+        web3.eth().block_number().await.unwrap()
+    } else {
+        web3::types::U64::from(args.end_block)
+    };
     loop {
         let block_data = web3.eth().block_with_txs(BlockId::Number(BlockNumber::from(block))).await.unwrap().unwrap();
         let txs = block_data.transactions;

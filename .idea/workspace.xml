@@ -9,6 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +48,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Cargo.Build Release">
+  <component name="RunManager" selected="Cargo.Run">
     <configuration name="Build Release" type="CargoCommandRunConfiguration" factoryName="Cargo Command">
       <option name="command" value="build --release --package rimport3 --bin rimport3" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
@@ -96,7 +97,7 @@
       <option name="presentableId" value="Default" />
       <updated>1657119223406</updated>
       <workItem from="1657119225333" duration="5907000" />
-      <workItem from="1657126419243" duration="11077000" />
+      <workItem from="1657126419243" duration="12900000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -119,7 +120,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657147875562</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Add &quot;Build Release&quot; Run configuration">
+      <created>1657148067007</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1657148067007</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,6 +139,7 @@
     <MESSAGE value="Initial Commit" />
     <MESSAGE value="add command line options" />
     <MESSAGE value="add Readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Readme" />
+    <MESSAGE value="Add &quot;Build Release&quot; Run configuration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add &quot;Build Release&quot; Run configuration" />
   </component>
 </project>
