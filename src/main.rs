@@ -22,7 +22,7 @@ struct Args {
     #[clap(long, value_parser, default_value = "mongodb://127.0.0.1:27017")]
     mongodb_uri: String,
     /// MongoDB database name
-    #[clap(long, value_parser, default_value = "roninrest")]
+    #[clap(long, value_parser, default_value = "ronin")]
     mongodb_name: String,
     /// MongoDB collection name
     #[clap(long, value_parser, default_value = "transactions")]
@@ -40,7 +40,8 @@ struct Args {
 
 #[derive(Debug, Serialize, Deserialize)]
 struct Transaction {
-    sender: String,
+    from: String,
+    to: String,
     hash: String,
     block: u32,
     created_at: DateTime,
@@ -80,7 +81,8 @@ async fn scan(col: Collection<Transaction>, args: Args) -> web3::Result<()> {
             println!("Block: {}\tTransactions: {}", block, txs.len());
             for tx in txs {
                 tx_pool.push(Transaction {
-                    sender: str::replace(&web3::helpers::to_string(&tx.from), "\"", ""),
+                    from: str::replace(&web3::helpers::to_string(&tx.from), "\"", ""),
+                    to: str::replace(&web3::helpers::to_string(&tx.to), "\"", ""),
                     hash: str::replace(&web3::helpers::to_string(&tx.hash), "\"",""),
                     block: block_data.number.unwrap().as_u32(),
                     created_at: DateTime::from_millis(i64::try_from(ts).unwrap()),
