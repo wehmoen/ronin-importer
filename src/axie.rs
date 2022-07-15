@@ -9,7 +9,7 @@ use clap::Parser;
 use std::{i64, thread};
 use std::time::Duration;
 use mongodb::{bson::doc, bson::DateTime, sync::Collection, sync::Client, options::FindOneOptions, IndexModel};
-use mongodb::options::IndexOptions;
+use mongodb::options::{IndexOptions};
 use serde::{Deserialize, Serialize};
 use web3::types::{Address, BlockId, BlockNumber, FilterBuilder, U64};
 use web3::contract::{Contract};
@@ -41,7 +41,7 @@ struct Args {
     end_block: u32,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 struct Transfer {
     from: String,
     to: String,
@@ -57,15 +57,15 @@ async fn get_db_head_block(col: &Collection<Transfer>) -> U64 {
     return web3::types::U64::from(result.block);
 }
 
-fn get_transfer_id(from: &str, to: &str, block: &u32) -> String {
-    let id = f!("{from}{to}{block}");
+fn get_transfer_id(from: &str, to: &str, axie: &u32, block: &u32) -> String {
+    let id = f!("{from}{to}{axie}{block}");
     let mut hasher = Sha256::new();
     Update::update(&mut hasher, id.as_bytes());
     format!("{:x}", hasher.finalize())
 }
 
 #[tokio::main]
-async fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> {
+async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> {
     let transport = web3::transports::WebSocket::new(&args.web3_hostname).await.unwrap();
     let web3 = web3::Web3::new(transport);
 
@@ -129,7 +129,6 @@ async fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> {
 
         let filter = web3.eth_filter().create_logs_filter(filter).await.unwrap();
         let result: Vec<web3::types::Log> = filter.logs().await.unwrap();
-        println!("Importing {} transfers in block range from {} to {}", result.len(), block, max);
 
         if result.len() > 0 {
             let mut tx_pool: Vec<Transfer> = vec![];
@@ -154,25 +153,29 @@ async fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> {
                 let timestamp = DateTime::from_millis(i64::try_from(timestamp).unwrap());
 
                 let block = block.number.unwrap().as_u32();
-                let transfer_id = get_transfer_id(&from.clone(), &to, &block);
+                let transfer_id = get_transfer_id(&from, &to, &token, &block);
                 let tx: Transfer = Transfer {
                     from,
                     to,
                     axie: token,
                     block,
                     created_at: timestamp,
-                    transfer_id
+                    transfer_id: transfer_id.to_owned()
                 };
-
-                tx_pool.push(tx);
+                let db_exists = col.count_documents(doc!{"transfer_id": transfer_id.clone()}, None).unwrap();
+                let pool_exists: Vec<Transfer> = tx_pool.iter().filter(|tx| tx.transfer_id.contains(&transfer_id)).cloned().collect();
+                if db_exists == 0 && pool_exists.len() == 0 {
+                    tx_pool.push(tx);
+                }
             }
 
+            println!("Importing {} transfers in block range from {} to {}", tx_pool.len(), block, max);
             if tx_pool.len() > 0 {
-                col.insert_many(tx_pool, None).expect("Some duplicates were avoided");
+                col.insert_many(tx_pool, None).unwrap();
             }
         }
 
-        block = block + web3::types::U64::from("10");
+        block = block + web3::types::U64::from("15");
 
         if block > max_block {
             println!("Breaking!");
@@ -201,7 +204,7 @@ async fn main() -> Result<(), ()> {
     collection.create_index(index_model, None).expect("Failed to create index!");
 
     let scan_result = tokio::task::spawn_blocking(|| {
-        scan(collection, args)
+        unsafe { scan(collection, args) }
     }).await.expect("Scan process panicked. We provided some meds but had to exit anyways.");
 
     let result = match scan_result {
