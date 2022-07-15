@@ -175,7 +175,7 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
             }
         }
 
-        block = block + web3::types::U64::from("15");
+        block = block + web3::types::U64::from("10");
 
         if block > max_block {
             println!("Breaking!");
