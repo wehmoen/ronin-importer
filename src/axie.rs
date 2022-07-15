@@ -37,7 +37,7 @@ struct Args {
     #[clap(long, value_parser, default_value = "ws://localhost:8546")]
     web3_hostname: String,
     /// Start Block - Set to 0 to resume from last block in database
-    #[clap(long, value_parser, default_value_t = 0)]
+    #[clap(long, value_parser, default_value_t = 2678592)]
     start_block: u32,
     /// End Block - If set to anything but 0 the import will stop at this block.
     #[clap(long, value_parser, default_value_t = 0)]
