@@ -3,6 +3,14 @@ name = "rimport3"
 version = "0.1.0"
 edition = "2021"
 
+[[bin]]
+name = "rimport3"
+path = "src/main.rs"
+
+[[bin]]
+name = "axie-transfer"
+path = "src/axie.rs"
+
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
@@ -10,7 +18,8 @@ web3 = "0.17.0"
 tokio = { version = "1.19.2", features = ["full"] }
 clap = { version = "3.2.8", features = ["derive", "suggestions", "color"] }
 serde = "1.0.137"
-
+hex-literal = "0.3.4"
+fstrings = "0.2.4-rc2"
 
 [dependencies.mongodb]
 version = "2.2.2"

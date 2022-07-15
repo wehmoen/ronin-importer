@@ -69,8 +69,9 @@ async fn scan(col: Collection<Transaction>, args: Args) -> web3::Result<()> {
         web3::types::U64::from(args.end_block)
     };
 
-    println!("Effective start: {}\tEffective end: {}", block, max_block);
-    println!("Continue Import in 5 seconds");
+    println!("Effective start_block: {}",block);
+    println!("Effective end_block: {}", max_block);
+    println!("Starting in 5 seconds...");
     thread::sleep(Duration::from_secs(5));
     loop {
         let block_data = web3.eth().block_with_txs(BlockId::Number(BlockNumber::from(block))).await.unwrap().unwrap();
@@ -104,6 +105,10 @@ async fn scan(col: Collection<Transaction>, args: Args) -> web3::Result<()> {
 
 #[tokio::main]
 async fn main() -> Result<(), ()> {
+    const VERSION: &str = env!("CARGO_PKG_VERSION");
+    const NAME: &str = env!("CARGO_PKG_NAME");
+
+    println!("{} v{}", NAME, VERSION);
 
     let args: Args = Args::parse();
 
