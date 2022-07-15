@@ -20,6 +20,7 @@ clap = { version = "3.2.8", features = ["derive", "suggestions", "color"] }
 serde = "1.0.137"
 hex-literal = "0.3.4"
 fstrings = "0.2.4-rc2"
+sha2 = "0.10.2"
 
 [dependencies.mongodb]
 version = "2.2.2"

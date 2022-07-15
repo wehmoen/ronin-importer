@@ -8,11 +8,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/abi.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/axie.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/axie.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/axie.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +57,7 @@
     "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.0",
     "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "language.rust.cargo.check",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -144,7 +143,7 @@
       <workItem from="1657472978500" duration="2368000" />
       <workItem from="1657781337662" duration="1450000" />
       <workItem from="1657888505861" duration="514000" />
-      <workItem from="1657889036968" duration="7550000" />
+      <workItem from="1657889036968" duration="12333000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -195,7 +194,21 @@
       <option name="project" value="LOCAL" />
       <updated>1657473047182</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Axie Transfer importer added">
+      <created>1657896764478</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1657896764478</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Start importing axie transfers at block where Axie contract was deployed">
+      <created>1657896929081</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1657896929081</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -211,6 +224,12 @@
     <MESSAGE value="Add command line option for end_block to limit the block range that is imported" />
     <MESSAGE value="- add cli option to change mongo collection name&#10;- add fn to get latest block from db to resume importing&#10;- resume from latest db block if cli option --start-block is 0&#10;- output result of scan()&#10;- print start and end block and wait 5 seconds before actually starting to sync" />
     <MESSAGE value="- index from and to field per tx&#10;- rename default db name from roninrest to just ronin" />
-    <option name="LAST_COMMIT_MESSAGE" value="- index from and to field per tx&#10;- rename default db name from roninrest to just ronin" />
+    <MESSAGE value="Axie Transfer importer added" />
+    <MESSAGE value="Start importing axie transfers at block where Axie contract was deployed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Start importing axie transfers at block where Axie contract was deployed" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

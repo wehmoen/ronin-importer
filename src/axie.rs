@@ -8,17 +8,14 @@ use std::fmt::Debug;
 use clap::Parser;
 use std::{i64, thread};
 use std::time::Duration;
-use mongodb::{
-    bson::doc,
-    bson::DateTime,
-    sync::Collection,
-    sync::Client,
-    options::FindOneOptions,
-};
+use mongodb::{bson::doc, bson::DateTime, sync::Collection, sync::Client, options::FindOneOptions, IndexModel};
+use mongodb::options::IndexOptions;
 use serde::{Deserialize, Serialize};
 use web3::types::{Address, BlockId, BlockNumber, FilterBuilder, U64};
 use web3::contract::{Contract};
 use web3::ethabi::{Event, EventParam, ParamType, RawLog};
+use sha2::{Sha256, Digest};
+use sha2::digest::{Update};
 
 /// Axie Infinity - Axie Transfer importer for MongoDB
 #[derive(Parser, Debug)]
@@ -51,12 +48,20 @@ struct Transfer {
     axie: u32,
     block: u32,
     created_at: DateTime,
+    transfer_id: String,
 }
 
-async fn get_db_head_block(col: &Collection<Transfer>) -> web3::types::U64 {
+async fn get_db_head_block(col: &Collection<Transfer>) -> U64 {
     let options = FindOneOptions::builder().sort(doc! {"block": -1}).build();
     let result: Transfer = col.find_one(None, options).unwrap().unwrap();
     return web3::types::U64::from(result.block);
+}
+
+fn get_transfer_id(from: &str, to: &str, block: &u32) -> String {
+    let id = f!("{from}{to}{block}");
+    let mut hasher = Sha256::new();
+    Update::update(&mut hasher, id.as_bytes());
+    format!("{:x}", hasher.finalize())
 }
 
 #[tokio::main]
@@ -148,24 +153,28 @@ async fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> {
                 let timestamp = block.timestamp.as_u64() * 1000;
                 let timestamp = DateTime::from_millis(i64::try_from(timestamp).unwrap());
 
-                tx_pool.push(Transfer {
+                let block = block.number.unwrap().as_u32();
+                let transfer_id = get_transfer_id(&from.clone(), &to, &block);
+                let tx: Transfer = Transfer {
                     from,
                     to,
                     axie: token,
-                    block: block.number.unwrap().as_u32(),
+                    block,
                     created_at: timestamp,
-                });
+                    transfer_id
+                };
 
+                tx_pool.push(tx);
             }
 
             if tx_pool.len() > 0 {
-                    col.insert_many(tx_pool, None).unwrap();
+                col.insert_many(tx_pool, None).expect("Some duplicates were avoided");
             }
         }
 
         block = block + web3::types::U64::from("10");
 
-        if block > max_block  {
+        if block > max_block {
             println!("Breaking!");
             break;
         }
@@ -186,6 +195,10 @@ async fn main() -> Result<(), ()> {
     let client = Client::with_uri_str(&args.mongodb_uri).unwrap();
     let database = client.database(&args.mongodb_name);
     let collection = database.collection::<Transfer>(&args.mongodb_collection);
+
+    let options = IndexOptions::builder().unique(true).build();
+    let index_model = IndexModel::builder().keys(doc! {"transfer_id": 1u32}).options(options).build();
+    collection.create_index(index_model, None).expect("Failed to create index!");
 
     let scan_result = tokio::task::spawn_blocking(|| {
         scan(collection, args)
