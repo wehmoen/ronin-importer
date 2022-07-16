@@ -69,11 +69,12 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
     let transport = web3::transports::WebSocket::new(&args.web3_hostname).await.unwrap();
     let web3 = web3::Web3::new(transport);
 
-    let mut block: U64 = if args.start_block == 0 {
-        get_db_head_block(&col).await + web3::types::U64::from("1")
+    let mut block = if args.start_block == 0 {
+        get_db_head_block(&col).await + 1i32
     } else {
         web3::types::U64::from(args.start_block)
     };
+
     let max_block = if args.end_block == 0 {
         web3.eth().block_number().await.unwrap()
     } else {
@@ -114,11 +115,9 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
 
     thread::sleep(Duration::from_secs(5));
     loop {
-        let max = block + web3::types::U64::from("10");
-
         let filter = FilterBuilder::default()
             .from_block(BlockNumber::from(block))
-            .to_block(BlockNumber::from(max))
+            .to_block(BlockNumber::from(block))
             .address(vec![contract.address()])
             .topics(
                 Some(vec![hex!("ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef").into()]),
@@ -160,22 +159,18 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
                     axie: token,
                     block,
                     created_at: timestamp,
-                    transfer_id: transfer_id.to_owned()
+                    transfer_id: transfer_id.to_owned(),
                 };
-                let db_exists = col.count_documents(doc!{"transfer_id": transfer_id.clone()}, None).unwrap();
-                let pool_exists: Vec<Transfer> = tx_pool.iter().filter(|tx| tx.transfer_id.contains(&transfer_id)).cloned().collect();
-                if db_exists == 0 && pool_exists.len() == 0 {
-                    tx_pool.push(tx);
-                }
+                tx_pool.push(tx);
             }
 
-            println!("Importing {} transfers in block range from {} to {}", tx_pool.len(), block, max);
+            println!("Importing {} transfers in block {}", tx_pool.len(), block);
             if tx_pool.len() > 0 {
                 col.insert_many(tx_pool, None).unwrap();
             }
         }
 
-        block = block + web3::types::U64::from("10");
+        block = block + 1i32;
 
         if block > max_block {
             println!("Breaking!");
