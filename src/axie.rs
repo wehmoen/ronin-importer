@@ -6,10 +6,9 @@ extern crate core;
 use hex_literal::hex;
 use std::fmt::Debug;
 use clap::Parser;
-use std::{i64, thread};
-use std::time::Duration;
+use std::{i64};
 use mongodb::{bson::doc, bson::DateTime, sync::Collection, sync::Client, options::FindOneOptions, IndexModel};
-use mongodb::options::{IndexOptions};
+use mongodb::options::{IndexOptions, InsertManyOptions};
 use serde::{Deserialize, Serialize};
 use web3::types::{Address, BlockId, BlockNumber, FilterBuilder, U64};
 use web3::contract::{Contract};
@@ -83,7 +82,6 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
 
     println!("Effective start_block: {}", block);
     println!("Effective end_block: {}", max_block);
-    println!("Starting in 5 seconds...");
 
     let abi = include_str!("abi.json").as_bytes();
     let axie_contract_address: Address = "32950db2a7164ae833121501c797d79e7b79d74c".parse().unwrap();
@@ -113,7 +111,6 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
         anonymous: false,
     };
 
-    thread::sleep(Duration::from_secs(5));
     loop {
         let filter = FilterBuilder::default()
             .from_block(BlockNumber::from(block))
@@ -166,7 +163,8 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
 
             println!("Importing {} transfers in block {}", tx_pool.len(), block);
             if tx_pool.len() > 0 {
-                col.insert_many(tx_pool, None).unwrap();
+                let insert_options = InsertManyOptions::builder().ordered(false).build();
+                col.insert_many(tx_pool, insert_options).ok();
             }
         }
 
