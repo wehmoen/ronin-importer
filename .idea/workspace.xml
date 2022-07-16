@@ -8,7 +8,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/axie.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/axie.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -142,7 +141,7 @@
       <workItem from="1657472978500" duration="2368000" />
       <workItem from="1657781337662" duration="1450000" />
       <workItem from="1657888505861" duration="514000" />
-      <workItem from="1657889036968" duration="19788000" />
+      <workItem from="1657889036968" duration="20474000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -242,7 +241,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657982604148</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Avoid crashing due to duplicate transfer_id">
+      <created>1657984751679</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1657984751679</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,7 +271,8 @@
     <MESSAGE value="Fix block increase" />
     <MESSAGE value="Create all indexes at launch" />
     <MESSAGE value="process block by block while importing axie transfers" />
-    <option name="LAST_COMMIT_MESSAGE" value="process block by block while importing axie transfers" />
+    <MESSAGE value="Avoid crashing due to duplicate transfer_id" />
+    <option name="LAST_COMMIT_MESSAGE" value="Avoid crashing due to duplicate transfer_id" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -166,6 +166,8 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
                 let insert_options = InsertManyOptions::builder().ordered(false).build();
                 col.insert_many(tx_pool, insert_options).ok();
             }
+        } else {
+            println!("Importing 0 transfers in block {}", block);
         }
 
         block = block + 1i32;
