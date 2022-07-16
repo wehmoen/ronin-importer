@@ -203,6 +203,18 @@ async fn main() -> Result<(), ()> {
     let index_model = IndexModel::builder().keys(doc! {"transfer_id": 1u32}).options(options).build();
     collection.create_index(index_model, None).expect("Failed to create index!");
 
+    let index_model = IndexModel::builder().keys(doc! {"axie": 1u32}).build();
+    collection.create_index(index_model, None).expect("Failed to create index!");
+
+    let index_model = IndexModel::builder().keys(doc! {"from": 1u32}).build();
+    collection.create_index(index_model, None).expect("Failed to create index!");
+
+    let index_model = IndexModel::builder().keys(doc! {"to": 1u32}).build();
+    collection.create_index(index_model, None).expect("Failed to create index!");
+
+    let index_model = IndexModel::builder().keys(doc! {"block": 1u32}).build();
+    collection.create_index(index_model, None).expect("Failed to create index!");
+
     let scan_result = tokio::task::spawn_blocking(|| {
         unsafe { scan(collection, args) }
     }).await.expect("Scan process panicked. We provided some meds but had to exit anyways.");
