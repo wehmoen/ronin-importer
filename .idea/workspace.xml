@@ -7,8 +7,12 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="">
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Update readme&#10;rename">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/Readme.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/axie.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/axie.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/transactions.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,6 +127,7 @@
     </recent_temporary>
   </component>
   <component name="RustProjectSettings">
+    <option name="runExternalLinterOnTheFly" value="true" />
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
     <option name="version" value="2" />
   </component>
@@ -141,7 +146,7 @@
       <workItem from="1657472978500" duration="2368000" />
       <workItem from="1657781337662" duration="1450000" />
       <workItem from="1657888505861" duration="514000" />
-      <workItem from="1657889036968" duration="20474000" />
+      <workItem from="1657889036968" duration="25040000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -248,7 +253,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657984751679</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="add log for empty blocks">
+      <created>1657986045692</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1657986045692</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,7 +284,8 @@
     <MESSAGE value="Create all indexes at launch" />
     <MESSAGE value="process block by block while importing axie transfers" />
     <MESSAGE value="Avoid crashing due to duplicate transfer_id" />
-    <option name="LAST_COMMIT_MESSAGE" value="Avoid crashing due to duplicate transfer_id" />
+    <MESSAGE value="add log for empty blocks" />
+    <option name="LAST_COMMIT_MESSAGE" value="add log for empty blocks" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

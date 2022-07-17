@@ -125,7 +125,7 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
 
         let filter = web3.eth_filter().create_logs_filter(filter).await.unwrap();
         let result: Vec<web3::types::Log> = filter.logs().await.unwrap();
-
+        let completion:f32 = (block.clone().as_u32() as f32 / max_block.clone().as_u32() as f32) * 100f32;
         if result.len() > 0 {
             let mut tx_pool: Vec<Transfer> = vec![];
             for log in result {
@@ -161,13 +161,13 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
                 tx_pool.push(tx);
             }
 
-            println!("Importing {} transfers in block {}", tx_pool.len(), block);
+            println!("Importing {} transfers in block {} ({:.6}%)", tx_pool.len(), block, completion);
             if tx_pool.len() > 0 {
                 let insert_options = InsertManyOptions::builder().ordered(false).build();
                 col.insert_many(tx_pool, insert_options).ok();
             }
         } else {
-            println!("Importing 0 transfers in block {}", block);
+            println!("Importing 0 transfers in block {} ({:.6}%)", block, completion);
         }
 
         block = block + 1i32;
