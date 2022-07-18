@@ -11,7 +11,6 @@ use mongodb::{bson::doc, bson::DateTime, sync::Collection, sync::Client, options
 use mongodb::options::{IndexOptions, InsertManyOptions};
 use serde::{Deserialize, Serialize};
 use web3::types::{Address, BlockId, BlockNumber, FilterBuilder, U64};
-use web3::contract::{Contract};
 use web3::ethabi::{Event, EventParam, ParamType, RawLog};
 use sha2::{Sha256, Digest};
 use sha2::digest::{Update};
@@ -83,31 +82,27 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
     println!("Effective start_block: {}", block);
     println!("Effective end_block: {}", max_block);
 
-    let abi = include_str!("abi.json").as_bytes();
     let axie_contract_address: Address = "32950db2a7164ae833121501c797d79e7b79d74c".parse().unwrap();
-    let contract = Contract::from_json(web3.eth(), axie_contract_address, abi).unwrap();
-
-    let params: Vec<EventParam> = vec![
-        EventParam {
-            name: "_from".to_string(),
-            kind: ParamType::Address,
-            indexed: true,
-        },
-        EventParam {
-            name: "_to".to_string(),
-            kind: ParamType::Address,
-            indexed: true,
-        },
-        EventParam {
-            name: "_tokenId".to_string(),
-            kind: ParamType::Uint(256),
-            indexed: true,
-        },
-    ];
 
     let event = Event {
         name: "Transfer".to_string(),
-        inputs: params,
+        inputs: vec![
+            EventParam {
+                name: "_from".to_string(),
+                kind: ParamType::Address,
+                indexed: true,
+            },
+            EventParam {
+                name: "_to".to_string(),
+                kind: ParamType::Address,
+                indexed: true,
+            },
+            EventParam {
+                name: "_tokenId".to_string(),
+                kind: ParamType::Uint(256),
+                indexed: true,
+            },
+        ],
         anonymous: false,
     };
 
@@ -115,7 +110,7 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
         let filter = FilterBuilder::default()
             .from_block(BlockNumber::from(block))
             .to_block(BlockNumber::from(block))
-            .address(vec![contract.address()])
+            .address(vec![axie_contract_address])
             .topics(
                 Some(vec![hex!("ddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef").into()]),
                 None,
@@ -125,7 +120,7 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
 
         let filter = web3.eth_filter().create_logs_filter(filter).await.unwrap();
         let result: Vec<web3::types::Log> = filter.logs().await.unwrap();
-        let completion:f32 = (block.clone().as_u32() as f32 / max_block.clone().as_u32() as f32) * 100f32;
+        let completion: f32 = (block.clone().as_u32() as f32 / max_block.clone().as_u32() as f32) * 100f32;
         if result.len() > 0 {
             let mut tx_pool: Vec<Transfer> = vec![];
             for log in result {

@@ -2,8 +2,7 @@ extern crate core;
 
 use std::fmt::Debug;
 use clap::Parser;
-use std::{i64, thread};
-use std::time::Duration;
+use std::{i64};
 use mongodb::{
     bson::doc,
     bson::DateTime,
@@ -12,6 +11,7 @@ use mongodb::{
     options::FindOneOptions
 };
 use serde::{Deserialize, Serialize};
+use web3::transports::{Http, WebSocket};
 use web3::types::{BlockId, BlockNumber};
 
 /// Ronin blockchain importer for MongoDB
@@ -30,6 +30,9 @@ struct Args {
     /// Web3 Websocket Host
     #[clap(long, value_parser, default_value = "ws://localhost:8546")]
     web3_hostname: String,
+    /// Web3 Provider Type
+    #[clap(long, value_parser, default_value = "ws")]
+    web3_provider_type: String,
     /// Start Block - Set to 0 to resume from last block in database
     #[clap(long, value_parser, default_value_t = 1)]
     start_block: u32,
@@ -53,9 +56,16 @@ async fn get_db_head_block(col: &Collection<Transaction>) -> web3::types::U64 {
     return web3::types::U64::from(result.block);
 }
 
+
 #[tokio::main]
 async fn scan(col: Collection<Transaction>, args: Args) -> web3::Result<()> {
-    let transport = web3::transports::WebSocket::new(&args.web3_hostname).await.unwrap();
+
+    let transport = match args.web3_provider_type.as_str() {
+        "ws" => web3::transports::either::Either::Left(WebSocket::new(&args.web3_hostname).await.unwrap()),
+        "http" => web3::transports::either::Either::Right(Http::new(&args.web3_hostname).unwrap()),
+        _ => panic!("Invalid provider type")
+    };
+
     let web3 = web3::Web3::new(transport);
 
     let mut block = if args.start_block == 0 {
@@ -71,8 +81,7 @@ async fn scan(col: Collection<Transaction>, args: Args) -> web3::Result<()> {
 
     println!("Effective start_block: {}",block);
     println!("Effective end_block: {}", max_block);
-    println!("Starting in 5 seconds...");
-    thread::sleep(Duration::from_secs(5));
+
     loop {
         let block_data = web3.eth().block_with_txs(BlockId::Number(BlockNumber::from(block))).await.unwrap().unwrap();
         let txs = block_data.transactions;
