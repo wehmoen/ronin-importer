@@ -31,6 +31,9 @@ struct Args {
     /// Web3 Websocket Host
     #[clap(long, value_parser, default_value = "ws://localhost:8546")]
     web3_hostname: String,
+    /// Web3 Provider Type
+    #[clap(long, value_parser, default_value = "ws")]
+    web3_provider_type: String,
     /// Start Block - Set to 0 to resume from last block in database
     #[clap(long, value_parser, default_value_t = 2678592)]
     start_block: u32,
@@ -64,7 +67,12 @@ fn get_transfer_id(from: &str, to: &str, axie: &u32, block: &u32) -> String {
 
 #[tokio::main]
 async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> {
-    let transport = web3::transports::WebSocket::new(&args.web3_hostname).await.unwrap();
+    let transport = match args.web3_provider_type.as_str() {
+        "ws" => web3::transports::either::Either::Left(web3::transports::WebSocket::new(&args.web3_hostname).await.unwrap()),
+        "http" => web3::transports::either::Either::Right(web3::transports::Http::new(&args.web3_hostname).unwrap()),
+        _ => panic!("Invalid provider type")
+    };
+
     let web3 = web3::Web3::new(transport);
 
     let mut block = if args.start_block == 0 {
