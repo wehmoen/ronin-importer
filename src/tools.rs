@@ -63,7 +63,7 @@ pub mod origin {
         pub async fn get_leaderboard_page(access_token: &String, page: u32) -> Vec<LeaderboardItem> {
             let offset = if page <= 0 { 0 } else { page - 1 } * 99;
 
-            let mut request_url = "https://game-api-origin.skymavis.com/v2/users/me/seasons/current/leaderboards?limit=25&is_self_included=False&offset=".to_owned();
+            let mut request_url = "https://game-api-origin.skymavis.com/v2/users/me/seasons/current/leaderboards?limit=100&is_self_included=False&offset=".to_owned();
             request_url.push_str(&offset.to_string());
 
             let client = reqwest::Client::new();

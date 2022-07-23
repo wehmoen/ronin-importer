@@ -18,7 +18,7 @@ async fn main() {
     let access_token: String = auth::get_access_token().await;
     let leaderboard: Vec<LeaderboardItem> = leaderboard::get_leaderboard_page(&access_token, 1).await;
 
-    let client: Client = Client::with_uri_str("mongodb://127.0.0.1/ronin").unwrap();
+    let client: Client = Client::with_uri_str("mongodb://127.0.0.1").unwrap();
     let database: Database = client.database("ronin");
     let collection: Collection<PVPBattleLog> = database.collection::<PVPBattleLog>("pvpbattlelogs");
 
@@ -62,7 +62,4 @@ async fn main() {
     let new_inserts = count_after - count_before;
 
     println!("Added {} battle logs to the database!", new_inserts);
-
-
-
 }

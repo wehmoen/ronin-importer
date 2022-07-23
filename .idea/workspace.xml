@@ -12,12 +12,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Update readme&#10;rename package to &quot;ronin-to-mongo&quot;&#10;rename &quot;rimport3&quot; binary to &quot;transactions&quot;&#10;added % progress to &quot;axie-transfer&quot;&#10;add support for http and ws web3 transport to transactions">
-      <change afterPath="$PROJECT_DIR$/src/leaderboard-tracer.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tools.rs" afterDir="false" />
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="add battle log importer and various typings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/axie.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/axie.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/leaderboard-tracer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leaderboard-tracer.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +159,7 @@
       <workItem from="1658233950518" duration="1160000" />
       <workItem from="1658254532793" duration="1229000" />
       <workItem from="1658256603351" duration="1501000" />
-      <workItem from="1658515161612" duration="9522000" />
+      <workItem from="1658515161612" duration="11449000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -289,7 +287,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658129324497</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="add battle log importer and various typings">
+      <created>1658525919780</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1658525919780</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -326,7 +331,8 @@
     <MESSAGE value="add log for empty blocks" />
     <MESSAGE value="Update readme&#10;rename package to &quot;ronin-to-mongo&quot;&#10;rename &quot;rimport3&quot; binary to &quot;transactions&quot;&#10;added % progress to &quot;axie-transfer&quot;" />
     <MESSAGE value="Update readme&#10;rename package to &quot;ronin-to-mongo&quot;&#10;rename &quot;rimport3&quot; binary to &quot;transactions&quot;&#10;added % progress to &quot;axie-transfer&quot;&#10;add support for http and ws web3 transport to transactions" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update readme&#10;rename package to &quot;ronin-to-mongo&quot;&#10;rename &quot;rimport3&quot; binary to &quot;transactions&quot;&#10;added % progress to &quot;axie-transfer&quot;&#10;add support for http and ws web3 transport to transactions" />
+    <MESSAGE value="add battle log importer and various typings" />
+    <option name="LAST_COMMIT_MESSAGE" value="add battle log importer and various typings" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
