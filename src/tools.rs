@@ -83,6 +83,41 @@ pub mod origin {
     }
 }
 
+pub mod database {
+    use mongodb::sync::Client;
+
+    use crate::tools::database::types::*;
+
+    pub mod types {
+        use std::collections::HashMap;
+
+        pub type ClientUri = String;
+        pub type Database = String;
+    }
+
+    pub struct Options {
+        pub client_uri: ClientUri,
+        pub database: Database,
+    }
+
+    pub struct MongoDb {
+        pub client: Client,
+        pub database: mongodb::sync::Database,
+    }
+
+    impl MongoDb {
+        pub async fn new(options: Options) -> MongoDb {
+            let client = Client::with_uri_str(&options.client_uri).unwrap();
+            let database = client.database(&options.database);
+
+            MongoDb {
+                client,
+                database,
+            }
+        }
+    }
+}
+
 pub mod types {
     use std::collections::HashMap;
 
@@ -129,7 +164,7 @@ pub mod types {
     pub enum RewardResult {
         Win,
         Lose,
-        Tie
+        Tie,
     }
 
     #[derive(Serialize, Deserialize, Debug)]

@@ -12,8 +12,18 @@ name = "axie-transfer"
 path = "src/axie.rs"
 
 [[bin]]
+name = "sale-history"
+path = "src/sale-history.rs"
+
+
+
+[[bin]]
 name = "leaderboard-tracer"
 path = "src/leaderboard-tracer.rs"
+
+[[bin]]
+name = "leaderboard-analyser"
+path = "src/leaderboard-analyse.rs"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
