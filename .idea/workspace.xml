@@ -12,8 +12,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Add axie sale indexer">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Fix usize 2^64 overflow for sale price">
       <change beforePath="$PROJECT_DIR$/src/sale-history.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/sale-history.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -160,7 +159,7 @@
       <workItem from="1658254532793" duration="1229000" />
       <workItem from="1658256603351" duration="1501000" />
       <workItem from="1658515161612" duration="13284000" />
-      <workItem from="1658655659545" duration="9722000" />
+      <workItem from="1658655659545" duration="10454000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -309,7 +308,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658664536774</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="Fix usize 2^64 overflow for sale price">
+      <created>1658665567119</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1658665567119</updated>
+    </task>
+    <option name="localTasksCounter" value="23" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -349,7 +355,8 @@
     <MESSAGE value="add battle log importer and various typings" />
     <MESSAGE value="Import more data from the leaderboard" />
     <MESSAGE value="Add axie sale indexer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add axie sale indexer" />
+    <MESSAGE value="Fix usize 2^64 overflow for sale price" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix usize 2^64 overflow for sale price" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

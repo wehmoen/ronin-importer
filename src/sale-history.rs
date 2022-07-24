@@ -213,7 +213,7 @@ async unsafe fn scan(col: Collection<Sale>, args: Args) -> web3::Result<()> {
                             block,
                             price: totalPrice.to_string(),
                             token: token.to_owned(),
-                            transaction_id: web3::helpers::to_string(&tx_hash),
+                            transaction_id: web3::helpers::to_string(&tx_hash).replace("\"", ""),
                             created_at: timestamp
                         };
                         tx_pool.push(tx);
