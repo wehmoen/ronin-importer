@@ -12,12 +12,9 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Import more data from the leaderboard">
-      <change afterPath="$PROJECT_DIR$/src/leaderboard-analyse.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/sale-history.rs" afterDir="false" />
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Add axie sale indexer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tools.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sale-history.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/sale-history.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -163,7 +160,7 @@
       <workItem from="1658254532793" duration="1229000" />
       <workItem from="1658256603351" duration="1501000" />
       <workItem from="1658515161612" duration="13284000" />
-      <workItem from="1658655659545" duration="8798000" />
+      <workItem from="1658655659545" duration="9722000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -305,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658540890735</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Add axie sale indexer">
+      <created>1658664536774</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1658664536774</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -344,7 +348,8 @@
     <MESSAGE value="Update readme&#10;rename package to &quot;ronin-to-mongo&quot;&#10;rename &quot;rimport3&quot; binary to &quot;transactions&quot;&#10;added % progress to &quot;axie-transfer&quot;&#10;add support for http and ws web3 transport to transactions" />
     <MESSAGE value="add battle log importer and various typings" />
     <MESSAGE value="Import more data from the leaderboard" />
-    <option name="LAST_COMMIT_MESSAGE" value="Import more data from the leaderboard" />
+    <MESSAGE value="Add axie sale indexer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add axie sale indexer" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

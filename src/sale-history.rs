@@ -12,7 +12,7 @@ use mongodb::options::{IndexOptions, InsertManyOptions};
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use sha2::digest::Update;
-use web3::ethabi::{Event, EventParam, ParamType, RawLog, Token};
+use web3::ethabi::{Event, EventParam, ParamType, RawLog, Token, Uint};
 use web3::types::{Address, BlockId, BlockNumber, FilterBuilder, U64};
 
 /// Axie Infinity - Axie Transfer importer for MongoDB
@@ -48,11 +48,13 @@ struct Sale {
     buyer: String,
     axie: usize,
     block: u32,
-    price: usize,
+    price: String,
     token: String,
     transaction_id: String,
     created_at: DateTime
 }
+
+
 
 async fn get_db_head_block(col: &Collection<Sale>) -> U64 {
     let options = FindOneOptions::builder().sort(doc! {"block": -1}).build();
@@ -180,7 +182,7 @@ async unsafe fn scan(col: Collection<Sale>, args: Args) -> web3::Result<()> {
                 let listingIndex = params[2].clone().value.into_uint().unwrap().as_usize();
                 let token = &params[3].value.to_string();
                 let token = f!("0x{token}");
-                let totalPrice = params[4].clone().value.into_uint().unwrap().as_usize();
+                let totalPrice = params[4].clone().value.into_uint().unwrap();
 
                 let block = web3.eth().block(BlockId::from(log.block_hash.unwrap())).await.unwrap().unwrap();
 
@@ -209,7 +211,7 @@ async unsafe fn scan(col: Collection<Sale>, args: Args) -> web3::Result<()> {
                             buyer: buyer.to_owned(),
                             axie,
                             block,
-                            price: totalPrice as usize,
+                            price: totalPrice.to_string(),
                             token: token.to_owned(),
                             transaction_id: web3::helpers::to_string(&tx_hash),
                             created_at: timestamp
