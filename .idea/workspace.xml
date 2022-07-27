@@ -12,9 +12,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Inline collection index building for erc import">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contracts.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/contracts.rs" afterDir="false" />
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Use transaction hash + log index as unique identifier for erc transfers&#10;Add log index">
       <change beforePath="$PROJECT_DIR$/src/erc-transfer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/erc-transfer.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -165,7 +163,7 @@
       <workItem from="1658760263507" duration="150000" />
       <workItem from="1658760587835" duration="600000" />
       <workItem from="1658926397665" duration="3389000" />
-      <workItem from="1658930643407" duration="5850000" />
+      <workItem from="1658930643407" duration="6350000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -342,7 +340,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658936015980</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Use transaction hash + log index as unique identifier for erc transfers&#10;Add log index">
+      <created>1658936804343</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1658936804343</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -361,7 +366,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Initial Commit" />
     <MESSAGE value="add command line options" />
     <MESSAGE value="add Readme" />
     <MESSAGE value="Add &quot;Build Release&quot; Run configuration" />
@@ -386,7 +390,8 @@
     <MESSAGE value="remove double quotes from transaction id" />
     <MESSAGE value="Add ERC20 and ERC721 Transfer indexer" />
     <MESSAGE value="Inline collection index building for erc import" />
-    <option name="LAST_COMMIT_MESSAGE" value="Inline collection index building for erc import" />
+    <MESSAGE value="Use transaction hash + log index as unique identifier for erc transfers&#10;Add log index" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use transaction hash + log index as unique identifier for erc transfers&#10;Add log index" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
