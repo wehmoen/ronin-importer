@@ -15,7 +15,9 @@ path = "src/axie.rs"
 name = "sale-history"
 path = "src/sale-history.rs"
 
-
+[[bin]]
+name = "erc-transfer"
+path = "src/erc-transfer.rs"
 
 [[bin]]
 name = "leaderboard-tracer"
