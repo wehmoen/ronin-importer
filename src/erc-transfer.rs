@@ -144,7 +144,7 @@ async fn main() {
                                 value_or_token_id: data[2].value.to_string(),
                                 created_at: DateTime::from_millis(chrono::Utc::now().timestamp() * 1000),
                                 block: block.clone().as_u64(),
-                                transaction_id: web3::helpers::to_string(&log.transaction_hash.unwrap()),
+                                transaction_id: web3::helpers::to_string(&log.transaction_hash.unwrap()).replace("\"", ""),
                                 erc: ContractType::ERC20,
                                 log_index: web3::helpers::to_string(&log.log_index.unwrap()).replace("\"", ""),
                                 log_id: get_transfer_id(web3::helpers::to_string(&log.transaction_hash.unwrap()), web3::helpers::to_string(&log.log_index.unwrap()))
@@ -162,7 +162,7 @@ async fn main() {
                                 value_or_token_id: data[2].value.to_string(),
                                 created_at: DateTime::from_millis(chrono::Utc::now().timestamp() * 1000),
                                 block: block.clone().as_u64(),
-                                transaction_id: web3::helpers::to_string(&log.transaction_hash.unwrap()),
+                                transaction_id: web3::helpers::to_string(&log.transaction_hash.unwrap()).replace("\"", ""),
                                 erc: ContractType::ERC721,
                                 log_index: web3::helpers::to_string(&log.log_index.unwrap()).replace("\"", ""),
                                 log_id: get_transfer_id(web3::helpers::to_string(&log.transaction_hash.unwrap()), web3::helpers::to_string(&log.log_index.unwrap()))
