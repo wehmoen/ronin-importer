@@ -1,7 +1,8 @@
 use clap::Parser;
 use hex_literal::hex;
 use mongodb::bson::{DateTime, doc};
-use mongodb::options::{FindOneOptions, InsertManyOptions};
+use mongodb::IndexModel;
+use mongodb::options::{FindOneOptions, IndexOptions, InsertManyOptions};
 use mongodb::sync::{Client, Collection};
 use web3::ethabi::{Address, Event, RawLog};
 use web3::types::{BlockNumber, FilterBuilder};
@@ -50,10 +51,8 @@ async fn main() {
     let args: Args = Args::parse();
 
     let erc_20_transfer: Event = contracts::events::erc_20_transfer();
-    // let erc_20_burn: Event = contracts::events::erc_20_burn();
     let erc_721_transfer: Event = contracts::events::erc_721_transfer();
     let contracts: contracts::contracts::ContractList = contracts::contracts::default();
-
 
     let transport = match args.web3_provider_type.as_str() {
         "ws" => web3::transports::either::Either::Left(web3::transports::WebSocket::new(&args.web3_hostname).await.unwrap()),
@@ -65,6 +64,14 @@ async fn main() {
     let client = Client::with_uri_str(&args.mongodb_uri).unwrap();
     let database = client.database(&args.mongodb_name);
     let collection = database.collection::<Transfer>(&args.mongodb_collection);
+
+    collection.create_index(IndexModel::builder().keys(doc! {"transaction_id": 1u32}).options(IndexOptions::builder().unique(true).build()).build(), None).expect("Failed to create index!");
+    collection.create_index(IndexModel::builder().keys(doc! {"from": 1u32}).build(), None).expect("Failed to create index!");
+    collection.create_index(IndexModel::builder().keys(doc! {"to": 1u32}).build(), None).expect("Failed to create index!");
+    collection.create_index(IndexModel::builder().keys(doc! {"token": 1u32}).build(), None).expect("Failed to create index!");
+    collection.create_index(IndexModel::builder().keys(doc! {"value_or_token_id": 1u32}).build(), None).expect("Failed to create index!");
+    collection.create_index(IndexModel::builder().keys(doc! {"block": 1u32}).build(), None).expect("Failed to create index!");
+    collection.create_index(IndexModel::builder().keys(doc! {"erc": 1u32}).build(), None).expect("Failed to create index!");
 
     let mut block = if args.start_block == 0 {
         get_db_head_block(&collection).await + 1i32

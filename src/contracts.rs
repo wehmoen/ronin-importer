@@ -54,6 +54,12 @@ pub mod contracts {
     pub fn default() -> ContractList {
         let mut map: ContractList = HashMap::new();
 
+        map.insert("0xc99a6a985ed2cac1ef41640596c5a5f9f4e19ef5", Contract {
+            name: "WETH",
+            decimals: 18,
+            erc: ContractType::ERC20
+        });
+
         map.insert("0xed4a9f48a62fb6fdcfb45bb00c9f61d1a436e58c", Contract {
             name: "AXS",
             decimals: 18,
