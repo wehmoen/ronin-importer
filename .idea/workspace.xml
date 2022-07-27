@@ -12,11 +12,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="remove double quotes from transaction id">
-      <change afterPath="$PROJECT_DIR$/src/contracts.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/erc-transfer.rs" afterDir="false" />
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Inline collection index building for erc import">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/contracts.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/contracts.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/erc-transfer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/erc-transfer.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +165,7 @@
       <workItem from="1658760263507" duration="150000" />
       <workItem from="1658760587835" duration="600000" />
       <workItem from="1658926397665" duration="3389000" />
-      <workItem from="1658930643407" duration="4780000" />
+      <workItem from="1658930643407" duration="5850000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -329,7 +328,21 @@
       <option name="project" value="LOCAL" />
       <updated>1658666354143</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Add ERC20 and ERC721 Transfer indexer">
+      <created>1658935473326</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1658935473326</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Inline collection index building for erc import">
+      <created>1658936015980</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1658936015980</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -371,7 +384,9 @@
     <MESSAGE value="Add axie sale indexer" />
     <MESSAGE value="Fix usize 2^64 overflow for sale price" />
     <MESSAGE value="remove double quotes from transaction id" />
-    <option name="LAST_COMMIT_MESSAGE" value="remove double quotes from transaction id" />
+    <MESSAGE value="Add ERC20 and ERC721 Transfer indexer" />
+    <MESSAGE value="Inline collection index building for erc import" />
+    <option name="LAST_COMMIT_MESSAGE" value="Inline collection index building for erc import" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

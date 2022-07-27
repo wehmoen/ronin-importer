@@ -1,9 +1,13 @@
+#[macro_use]
+extern crate fstrings;
 use clap::Parser;
 use hex_literal::hex;
 use mongodb::bson::{DateTime, doc};
 use mongodb::IndexModel;
 use mongodb::options::{FindOneOptions, IndexOptions, InsertManyOptions};
 use mongodb::sync::{Client, Collection};
+use sha2::{Sha256, Digest};
+use sha2::digest::{Update};
 use web3::ethabi::{Address, Event, RawLog};
 use web3::types::{BlockNumber, FilterBuilder};
 
@@ -46,6 +50,14 @@ async fn get_db_head_block(col: &Collection<Transfer>) -> web3::types::U64 {
 }
 
 
+fn get_transfer_id(hash: String, index: String) -> String {
+    let id = f!("{hash}-{index}");
+    let mut hasher = Sha256::new();
+    Update::update(&mut hasher, id.as_bytes());
+    format!("{:x}", hasher.finalize())
+}
+
+
 #[tokio::main]
 async fn main() {
     let args: Args = Args::parse();
@@ -65,13 +77,14 @@ async fn main() {
     let database = client.database(&args.mongodb_name);
     let collection = database.collection::<Transfer>(&args.mongodb_collection);
 
-    collection.create_index(IndexModel::builder().keys(doc! {"transaction_id": 1u32}).options(IndexOptions::builder().unique(true).build()).build(), None).expect("Failed to create index!");
+    collection.create_index(IndexModel::builder().keys(doc! {"log_id": 1u32}).options(IndexOptions::builder().unique(true).build()).build(), None).expect("Failed to create index!");
     collection.create_index(IndexModel::builder().keys(doc! {"from": 1u32}).build(), None).expect("Failed to create index!");
     collection.create_index(IndexModel::builder().keys(doc! {"to": 1u32}).build(), None).expect("Failed to create index!");
     collection.create_index(IndexModel::builder().keys(doc! {"token": 1u32}).build(), None).expect("Failed to create index!");
     collection.create_index(IndexModel::builder().keys(doc! {"value_or_token_id": 1u32}).build(), None).expect("Failed to create index!");
     collection.create_index(IndexModel::builder().keys(doc! {"block": 1u32}).build(), None).expect("Failed to create index!");
     collection.create_index(IndexModel::builder().keys(doc! {"erc": 1u32}).build(), None).expect("Failed to create index!");
+    collection.create_index(IndexModel::builder().keys(doc! {"transaction_id": 1u32}).build(), None).expect("Failed to create index!");
 
     let mut block = if args.start_block == 0 {
         get_db_head_block(&collection).await + 1i32
@@ -127,12 +140,14 @@ async fn main() {
                             Transfer {
                                 from: data[0].value.to_string(),
                                 to: data[1].value.to_string(),
-                                token: address.to_string(),
+                                token: web3::helpers::to_string(&address),
                                 value_or_token_id: data[2].value.to_string(),
                                 created_at: DateTime::from_millis(chrono::Utc::now().timestamp() * 1000),
                                 block: block.clone().as_u64(),
                                 transaction_id: web3::helpers::to_string(&log.transaction_hash.unwrap()),
-                                erc: ContractType::ERC20
+                                erc: ContractType::ERC20,
+                                log_index: web3::helpers::to_string(&log.log_index.unwrap()),
+                                log_id: get_transfer_id(web3::helpers::to_string(&log.transaction_hash.unwrap()), web3::helpers::to_string(&log.log_index.unwrap()))
                             }
                         }
                         ContractType::ERC721 => {
@@ -143,12 +158,14 @@ async fn main() {
                             Transfer {
                                 from: data[0].value.to_string(),
                                 to: data[1].value.to_string(),
-                                token: address.to_string(),
+                                token: web3::helpers::to_string(&address),
                                 value_or_token_id: data[2].value.to_string(),
                                 created_at: DateTime::from_millis(chrono::Utc::now().timestamp() * 1000),
                                 block: block.clone().as_u64(),
                                 transaction_id: web3::helpers::to_string(&log.transaction_hash.unwrap()),
-                                erc: ContractType::ERC721
+                                erc: ContractType::ERC721,
+                                log_index: web3::helpers::to_string(&log.log_index.unwrap()),
+                                log_id: get_transfer_id(web3::helpers::to_string(&log.transaction_hash.unwrap()), web3::helpers::to_string(&log.log_index.unwrap()))
                             }
                         }
                         ContractType::Unknown => continue

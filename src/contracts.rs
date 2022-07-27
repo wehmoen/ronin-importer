@@ -12,7 +12,9 @@ pub mod database {
         pub created_at: DateTime,
         pub block: u64,
         pub transaction_id: String,
-        pub erc: ContractType
+        pub erc: ContractType,
+        pub log_index: String,
+        pub log_id: String
     }
 
     impl Transfer {
@@ -25,7 +27,9 @@ pub mod database {
                 created_at: DateTime::from_millis(chrono::Utc::now().timestamp() * 1000),
                 block: 0u64,
                 transaction_id: "0x0000000000000000000000000000000000000000000000000000000000000000".to_string(),
-                erc: ContractType::Unknown
+                erc: ContractType::Unknown,
+                log_index: "0".to_string(),
+                log_id: "0x0".to_string()
             }
         }
     }
