@@ -15,6 +15,7 @@ use web3::types::{BlockNumber, FilterBuilder, Log};
 
 use crate::contracts::contracts::{Contract, ContractType};
 use crate::contracts::database::Transfer;
+use crate::tools::database::{MongoDb, Options};
 
 mod contracts;
 
@@ -59,6 +60,7 @@ fn get_transfer_id(hash: String, index: String) -> String {
     format!("{:x}", hasher.finalize())
 }
 
+mod tools;
 
 #[tokio::main]
 async fn main() {
@@ -75,9 +77,8 @@ async fn main() {
     };
     let web3 = web3::Web3::new(transport);
 
-    let client = Client::with_uri_str(&args.mongodb_uri).unwrap();
-    let database = client.database(&args.mongodb_name);
-    let collection = database.collection::<Transfer>(&args.mongodb_collection);
+    let db = MongoDb::new(Options { client_uri: String::from(&args.mongodb_uri), database: String::from(&args.mongodb_name) }).await;
+    let collection = db.database.collection::<Transfer>(&args.mongodb_collection);
 
     collection.create_index(IndexModel::builder().keys(doc! {"log_id": 1u32}).options(IndexOptions::builder().unique(true).build()).build(), None).expect("Failed to create index!");
     collection.create_index(IndexModel::builder().keys(doc! {"from": 1u32}).build(), None).expect("Failed to create index!");
@@ -192,4 +193,5 @@ async fn main() {
             break;
         }
     }
+    db.update_health(String::from("erc-transfer"));
 }

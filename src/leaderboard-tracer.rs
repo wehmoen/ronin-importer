@@ -16,8 +16,7 @@ mod tools;
 #[tokio::main]
 async fn main() {
 
-    let access_token: String = auth::get_access_token().await;
-    let leaderboard: Vec<LeaderboardItem> = leaderboard::get_leaderboard_page(&access_token, 1).await;
+    let leaderboard: Vec<LeaderboardItem> = leaderboard::get_leaderboard_page(1).await;
 
 
     let db = MongoDb::new(Options { client_uri: "mongodb://127.0.0.1".to_string(), database: "ronin".to_string() }).await;

@@ -15,10 +15,14 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Test: Add health report to leaderboard-tracer">
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Fix update_health update query">
+      <change beforePath="$PROJECT_DIR$/src/axie.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/axie.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/erc-transfer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/erc-transfer.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/leaderboard-analyse.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leaderboard-analyse.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/leaderboard-tracer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leaderboard-tracer.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/sale-history.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/sale-history.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/transactions.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/transactions.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +169,7 @@
       <workItem from="1658926397665" duration="3389000" />
       <workItem from="1658930643407" duration="12216000" />
       <workItem from="1659019632342" duration="2252000" />
-      <workItem from="1659043662337" duration="2856000" />
+      <workItem from="1659043662337" duration="3585000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -384,7 +388,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659048233835</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="Fix update_health update query">
+      <created>1659048658025</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1659048658025</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -403,7 +414,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="- index from and to field per tx&#10;- rename default db name from roninrest to just ronin" />
     <MESSAGE value="Axie Transfer importer added" />
     <MESSAGE value="Start importing axie transfers at block where Axie contract was deployed" />
     <MESSAGE value="Integrate unique transfer id" />
@@ -428,7 +438,19 @@
     <MESSAGE value="fix get leaderboard" />
     <MESSAGE value="add new features to itemid enum" />
     <MESSAGE value="Test: Add health report to leaderboard-tracer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Test: Add health report to leaderboard-tracer" />
+    <MESSAGE value="Fix update_health update query" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix update_health update query" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/erc-transfer.rs</url>
+          <line>63</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

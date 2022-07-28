@@ -14,6 +14,9 @@ use web3::types::{Address, BlockId, BlockNumber, FilterBuilder, U64};
 use web3::ethabi::{Event, EventParam, ParamType, RawLog};
 use sha2::{Sha256, Digest};
 use sha2::digest::{Update};
+use web3::contract::Options;
+use tools::database;
+use crate::tools::database::MongoDb;
 
 /// Axie Infinity - Axie Transfer importer for MongoDB
 #[derive(Parser, Debug)]
@@ -184,6 +187,8 @@ async unsafe fn scan(col: Collection<Transfer>, args: Args) -> web3::Result<()> 
     Ok(())
 }
 
+mod tools;
+
 #[tokio::main]
 async fn main() -> Result<(), ()> {
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -193,9 +198,8 @@ async fn main() -> Result<(), ()> {
 
     let args: Args = Args::parse();
 
-    let client = Client::with_uri_str(&args.mongodb_uri).unwrap();
-    let database = client.database(&args.mongodb_name);
-    let collection = database.collection::<Transfer>(&args.mongodb_collection);
+    let db = MongoDb::new(database::Options { client_uri: String::from(&args.mongodb_uri), database: String::from(&args.mongodb_name) }).await;
+    let collection = db.database.collection::<Transfer>(&args.mongodb_collection);
 
     let options = IndexOptions::builder().unique(true).build();
     let index_model = IndexModel::builder().keys(doc! {"transfer_id": 1u32}).options(options).build();
@@ -223,6 +227,8 @@ async fn main() -> Result<(), ()> {
     };
 
     println!("{}", result);
+
+    db.update_health("axie-sales".into());
 
     Ok(())
 }

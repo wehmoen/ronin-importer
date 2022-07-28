@@ -14,6 +14,7 @@ use sha2::{Digest, Sha256};
 use sha2::digest::Update;
 use web3::ethabi::{Event, EventParam, ParamType, RawLog, Token, Uint};
 use web3::types::{Address, BlockId, BlockNumber, FilterBuilder, U64};
+use crate::tools::database::{MongoDb, Options};
 
 /// Axie Infinity - Axie Transfer importer for MongoDB
 #[derive(Parser, Debug)]
@@ -243,6 +244,8 @@ async unsafe fn scan(col: Collection<Sale>, args: Args) -> web3::Result<()> {
     Ok(())
 }
 
+mod tools;
+
 #[tokio::main]
 async fn main() -> Result<(), ()> {
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -252,9 +255,8 @@ async fn main() -> Result<(), ()> {
 
     let args: Args = Args::parse();
 
-    let client = Client::with_uri_str(&args.mongodb_uri).unwrap();
-    let database = client.database(&args.mongodb_name);
-    let collection = database.collection::<Sale>(&args.mongodb_collection);
+    let db = MongoDb::new(Options { client_uri: String::from(&args.mongodb_uri), database: String::from(&args.mongodb_name) }).await;
+    let collection = db.database.collection::<Sale>(&args.mongodb_collection);
 
     let options = IndexOptions::builder().unique(true).build();
     let index_model = IndexModel::builder().keys(doc! {"transaction_id": 1u32}).options(options).build();
@@ -279,12 +281,7 @@ async fn main() -> Result<(), ()> {
         unsafe { scan(collection, args) }
     }).await.expect("Scan process panicked. We provided some meds but had to exit anyways.");
 
-    // let result = match scan_result {
-    //     Ok(_res) => std::string::String::from("Finished importing axie transfers!"),
-    //     Err(_error) => format!("{} {}", &"An error occured during the process of importing axie transfer!", _error)
-    // };
-
-    // println!("{}", result);
+    db.update_health("axie-sales".into());
 
     Ok(())
 }

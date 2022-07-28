@@ -13,6 +13,7 @@ use mongodb::{
 use serde::{Deserialize, Serialize};
 use web3::transports::{Http, WebSocket};
 use web3::types::{BlockId, BlockNumber};
+use crate::tools::database::{MongoDb, Options};
 
 /// Ronin blockchain importer for MongoDB
 #[derive(Parser, Debug)]
@@ -112,6 +113,8 @@ async fn scan(col: Collection<Transaction>, args: Args) -> web3::Result<()> {
     Ok(())
 }
 
+mod tools;
+
 #[tokio::main]
 async fn main() -> Result<(), ()> {
     const VERSION: &str = env!("CARGO_PKG_VERSION");
@@ -121,9 +124,8 @@ async fn main() -> Result<(), ()> {
 
     let args: Args = Args::parse();
 
-    let client = Client::with_uri_str(&args.mongodb_uri).unwrap();
-    let database = client.database(&args.mongodb_name);
-    let collection = database.collection::<Transaction>(&args.mongodb_collection);
+    let db = MongoDb::new(Options { client_uri: String::from(&args.mongodb_uri), database: String::from(&args.mongodb_name) }).await;
+    let collection = db.database.collection::<Transaction>(&args.mongodb_collection);
 
     let scan_result = tokio::task::spawn_blocking(|| {
         scan(collection, args)
@@ -135,6 +137,8 @@ async fn main() -> Result<(), ()> {
     };
 
     println!("{}", result);
+
+    db.update_health("transactions".into());
 
     Ok(())
 }

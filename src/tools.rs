@@ -1,46 +1,46 @@
 pub mod origin {
-    pub mod auth {
-        use std::collections::HashMap;
-
-        use serde::Deserialize;
-        use sha2::{Digest, Sha256};
-        use sha2::digest::Update;
-
-        const ORIGIN_AUTH_EMAIL: &str = "bierkoenig@scholar.axie.icu";
-        const ORIGIN_AUTH_PASSWORD: &str = "S94amJPp";
-
-        #[derive(Deserialize)]
-        #[serde(rename_all = "camelCase")]
-        struct AuthResponse {
-            access_token: String,
-        }
-
-        fn hash_password(password: &str) -> String {
-            let mut hasher = Sha256::new();
-            Update::update(&mut hasher, password.as_bytes());
-            return format!("{:x}", hasher.finalize());
-        }
-
-        pub async fn get_access_token() -> String {
-            let mut map = HashMap::new();
-            map.insert("email", ORIGIN_AUTH_EMAIL);
-            let hashed_password = hash_password(ORIGIN_AUTH_PASSWORD);
-            map.insert("password", hashed_password.as_str());
-
-            let client = reqwest::Client::new();
-            let request: Result<AuthResponse, reqwest::Error> = client.post("https://athena.skymavis.com/v1/rpc/auth/login")
-                .json(&map)
-                .send()
-                .await
-                .unwrap()
-                .json().await;
-
-            match request {
-                Ok(res) => res.access_token,
-                Err(e) => panic!("{}", e)
-            }
-        }
-    }
+    // pub mod auth {
+    //     use std::collections::HashMap;
+    //
+    //     use serde::Deserialize;
+    //     use sha2::{Digest, Sha256};
+    //     use sha2::digest::Update;
+    //
+    //     const ORIGIN_AUTH_EMAIL: &str = "bierkoenig@scholar.axie.icu";
+    //     const ORIGIN_AUTH_PASSWORD: &str = "S94amJPp";
+    //
+    //     #[derive(Deserialize)]
+    //     #[serde(rename_all = "camelCase")]
+    //     struct AuthResponse {
+    //         access_token: String,
+    //     }
+    //
+    //     fn hash_password(password: &str) -> String {
+    //         let mut hasher = Sha256::new();
+    //         Update::update(&mut hasher, password.as_bytes());
+    //         return format!("{:x}", hasher.finalize());
+    //     }
+    //
+    //     pub async fn get_access_token() -> String {
+    //         let mut map = HashMap::new();
+    //         map.insert("email", ORIGIN_AUTH_EMAIL);
+    //         let hashed_password = hash_password(ORIGIN_AUTH_PASSWORD);
+    //         map.insert("password", hashed_password.as_str());
+    //
+    //         let client = reqwest::Client::new();
+    //         let request: Result<AuthResponse, reqwest::Error> = client.post("https://athena.skymavis.com/v1/rpc/auth/login")
+    //             .json(&map)
+    //             .send()
+    //             .await
+    //             .unwrap()
+    //             .json().await;
+    //
+    //         match request {
+    //             Ok(res) => res.access_token,
+    //             Err(e) => panic!("{}", e)
+    //         }
+    //     }
+    // }
 
     pub mod leaderboard {
         use serde::Deserialize;
@@ -60,7 +60,7 @@ pub mod origin {
             pub vstar: u32,
         }
 
-        pub async fn get_leaderboard_page(access_token: &String, page: u32) -> Vec<LeaderboardItem> {
+        pub async fn get_leaderboard_page(page: u32) -> Vec<LeaderboardItem> {
             let offset = if page <= 0 { 0 } else { page - 1 } * 99;
 
             let mut request_url = "https://game-api-origin.skymavis.com/v2/season-leaderboards?limit=100&offset=".to_owned();
@@ -69,7 +69,6 @@ pub mod origin {
             let client = reqwest::Client::new();
             let result: Result<Leaderboard, reqwest::Error> = client.get(request_url)
                 .header("User-Agent", "")
-                .bearer_auth(&access_token)
                 .send()
                 .await
                 .unwrap()
