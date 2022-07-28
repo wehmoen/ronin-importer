@@ -84,7 +84,10 @@ pub mod origin {
 }
 
 pub mod database {
-    use mongodb::sync::Client;
+    use mongodb::bson::{DateTime, doc};
+    use mongodb::options::{FindOneAndUpdateOptions, InsertOneOptions};
+    use mongodb::sync::{Client, Collection};
+    use serde::{Deserialize, Serialize};
 
     use crate::tools::database::types::*;
 
@@ -93,6 +96,13 @@ pub mod database {
 
         pub type ClientUri = String;
         pub type Database = String;
+        pub type ServiceName = String;
+    }
+
+    #[derive(Serialize, Deserialize)]
+    pub struct ServiceHealth {
+        pub name: ServiceName,
+        pub last_active: DateTime,
     }
 
     pub struct Options {
@@ -114,6 +124,24 @@ pub mod database {
                 client,
                 database,
             }
+        }
+
+        pub fn health_collection(&self) -> Collection<ServiceHealth> {
+            self.database.collection("health")
+        }
+
+        pub fn update_health(&self, name: ServiceName) -> bool {
+            let col = self.health_collection();
+            let opt = FindOneAndUpdateOptions::builder().upsert(Some(true)).build();
+            col.find_one_and_update(
+                doc! {"name": &name},
+                doc! {
+                    "name": &name,
+                    "last_active": DateTime::from_millis(chrono::Utc::now().timestamp() * 1000)
+                },
+                opt,
+            ).ok();
+            true
         }
     }
 }
@@ -173,7 +201,7 @@ pub mod types {
         Exp,
         Moonshard,
         Feature_Mailbox,
-        Feature_News
+        Feature_News,
     }
 
     #[derive(Serialize, Deserialize, Debug)]

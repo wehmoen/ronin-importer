@@ -9,6 +9,7 @@ use mongodb::sync::Database;
 use crate::leaderboard::LeaderboardItem;
 
 use crate::tools::origin::*;
+use crate::tools::database::*;
 
 mod tools;
 
@@ -18,9 +19,10 @@ async fn main() {
     let access_token: String = auth::get_access_token().await;
     let leaderboard: Vec<LeaderboardItem> = leaderboard::get_leaderboard_page(&access_token, 1).await;
 
-    let client: Client = Client::with_uri_str("mongodb://127.0.0.1").unwrap();
-    let database: Database = client.database("ronin");
-    let collection: Collection<PVPBattleLog> = database.collection::<PVPBattleLog>("pvpbattlelogs");
+
+    let db = MongoDb::new(Options { client_uri: "mongodb://127.0.0.1".to_string(), database: "ronin".to_string() }).await;
+
+    let collection: Collection<PVPBattleLog> = db.database.collection::<PVPBattleLog>("pvpbattlelogs");
 
     let options = IndexOptions::builder().unique(true).build();
     let index_model = IndexModel::builder().keys(doc! {"battle_uuid": 1u32}).options(options).build();
@@ -62,4 +64,6 @@ async fn main() {
     let new_inserts = count_after - count_before;
 
     println!("Added {} battle logs to the database!", new_inserts);
+
+    db.update_health(String::from("battlelog-analyser"));
 }
