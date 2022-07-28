@@ -8,8 +8,10 @@ use mongodb::options::{FindOneOptions, IndexOptions, InsertManyOptions};
 use mongodb::sync::{Client, Collection};
 use sha2::{Sha256, Digest};
 use sha2::digest::{Update};
+use web3::api::BaseFilter;
 use web3::ethabi::{Address, Event, RawLog};
-use web3::types::{BlockNumber, FilterBuilder};
+use web3::transports::{Either, Http, WebSocket};
+use web3::types::{BlockNumber, FilterBuilder, Log};
 
 use crate::contracts::contracts::{Contract, ContractType};
 use crate::contracts::database::Transfer;
@@ -67,8 +69,8 @@ async fn main() {
     let contracts: contracts::contracts::ContractList = contracts::contracts::default();
 
     let transport = match args.web3_provider_type.as_str() {
-        "ws" => web3::transports::either::Either::Left(web3::transports::WebSocket::new(&args.web3_hostname).await.unwrap()),
-        "http" => web3::transports::either::Either::Right(web3::transports::Http::new(&args.web3_hostname).unwrap()),
+        "ws" => Either::Left(WebSocket::new(&args.web3_hostname).await.unwrap()),
+        "http" => Either::Right(Http::new(&args.web3_hostname).unwrap()),
         _ => panic!("Invalid provider type")
     };
     let web3 = web3::Web3::new(transport);
@@ -106,8 +108,8 @@ async fn main() {
 
         for address in contracts.keys() {
             let contract: &Contract = contracts.get(address).unwrap();
-
             let address: Address = address.parse().unwrap();
+
             let transfer_filter = FilterBuilder::default()
                 .from_block(BlockNumber::from(block))
                 .to_block(BlockNumber::from(block))
@@ -119,8 +121,8 @@ async fn main() {
                     None,
                 ).build();
 
-            let filter = web3.eth_filter().create_logs_filter(transfer_filter).await.unwrap();
-            let result: Vec<web3::types::Log> = filter.logs().await.unwrap();
+            let filter: BaseFilter<Either<WebSocket, Http>, Log> = web3.eth_filter().create_logs_filter(transfer_filter).await.unwrap();
+            let result: Vec<Log> = filter.logs().await.unwrap();
 
             if result.len() > 0 {
 
