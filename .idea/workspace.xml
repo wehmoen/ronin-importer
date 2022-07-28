@@ -15,11 +15,9 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Remove double quotes from tranaction_id">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/erc-transfer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/erc-transfer.rs" afterDir="false" />
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="fix get leaderboard">
       <change beforePath="$PROJECT_DIR$/src/leaderboard-analyse.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leaderboard-analyse.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tools.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,7 +164,7 @@
       <workItem from="1658926397665" duration="3389000" />
       <workItem from="1658930643407" duration="12216000" />
       <workItem from="1659019632342" duration="2252000" />
-      <workItem from="1659043662337" duration="317000" />
+      <workItem from="1659043662337" duration="627000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -364,7 +362,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658937117852</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="fix get leaderboard">
+      <created>1659044160970</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1659044160970</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,7 +388,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Add &quot;Build Release&quot; Run configuration" />
     <MESSAGE value="Add command line option for end_block to limit the block range that is imported" />
     <MESSAGE value="- add cli option to change mongo collection name&#10;- add fn to get latest block from db to resume importing&#10;- resume from latest db block if cli option --start-block is 0&#10;- output result of scan()&#10;- print start and end block and wait 5 seconds before actually starting to sync" />
     <MESSAGE value="- index from and to field per tx&#10;- rename default db name from roninrest to just ronin" />
@@ -408,7 +412,8 @@
     <MESSAGE value="Use transaction hash + log index as unique identifier for erc transfers&#10;Add log index" />
     <MESSAGE value="Remove double quotes from token address and log index field" />
     <MESSAGE value="Remove double quotes from tranaction_id" />
-    <option name="LAST_COMMIT_MESSAGE" value="Remove double quotes from tranaction_id" />
+    <MESSAGE value="fix get leaderboard" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix get leaderboard" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

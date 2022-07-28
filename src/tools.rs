@@ -172,6 +172,8 @@ pub mod types {
     pub enum ItemId {
         Exp,
         Moonshard,
+        Feature_Mailbox,
+        Feature_News
     }
 
     #[derive(Serialize, Deserialize, Debug)]
