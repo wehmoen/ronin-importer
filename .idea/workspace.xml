@@ -15,8 +15,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="add new features to itemid enum">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Test: Add health report to leaderboard-tracer">
       <change beforePath="$PROJECT_DIR$/src/leaderboard-analyse.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leaderboard-analyse.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/leaderboard-tracer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leaderboard-tracer.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/tools.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/tools.rs" afterDir="false" />
@@ -166,7 +165,7 @@
       <workItem from="1658926397665" duration="3389000" />
       <workItem from="1658930643407" duration="12216000" />
       <workItem from="1659019632342" duration="2252000" />
-      <workItem from="1659043662337" duration="2521000" />
+      <workItem from="1659043662337" duration="2856000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -378,7 +377,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659044455823</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Test: Add health report to leaderboard-tracer">
+      <created>1659048233835</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1659048233835</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -397,7 +403,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="- add cli option to change mongo collection name&#10;- add fn to get latest block from db to resume importing&#10;- resume from latest db block if cli option --start-block is 0&#10;- output result of scan()&#10;- print start and end block and wait 5 seconds before actually starting to sync" />
     <MESSAGE value="- index from and to field per tx&#10;- rename default db name from roninrest to just ronin" />
     <MESSAGE value="Axie Transfer importer added" />
     <MESSAGE value="Start importing axie transfers at block where Axie contract was deployed" />
@@ -422,7 +427,8 @@
     <MESSAGE value="Remove double quotes from tranaction_id" />
     <MESSAGE value="fix get leaderboard" />
     <MESSAGE value="add new features to itemid enum" />
-    <option name="LAST_COMMIT_MESSAGE" value="add new features to itemid enum" />
+    <MESSAGE value="Test: Add health report to leaderboard-tracer" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test: Add health report to leaderboard-tracer" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

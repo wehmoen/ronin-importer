@@ -136,8 +136,10 @@ pub mod database {
             col.find_one_and_update(
                 doc! {"name": &name},
                 doc! {
-                    "name": &name,
-                    "last_active": DateTime::from_millis(chrono::Utc::now().timestamp() * 1000)
+                    "$set": {
+                        "name": &name,
+                        "last_active": DateTime::from_millis(chrono::Utc::now().timestamp() * 1000)
+                    }
                 },
                 opt,
             ).ok();
