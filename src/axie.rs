@@ -228,7 +228,7 @@ async fn main() -> Result<(), ()> {
 
     println!("{}", result);
 
-    db.update_health("axie-sales".into());
+    db.update_health("axie-transfers".into());
 
     Ok(())
 }
