@@ -99,7 +99,7 @@ async fn scan(col: Collection<Transaction>, args: Args) -> web3::Result<()> {
                     created_at: DateTime::from_millis(i64::try_from(ts).unwrap()),
                 });
             }
-            col.insert_many(tx_pool, None).unwrap();
+            col.insert_many(tx_pool, None).ok();
         } else{
             println!("Block: {}\tTransactions: {}", block, 0);
         }
