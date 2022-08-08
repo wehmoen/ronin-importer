@@ -119,20 +119,6 @@ pub mod contracts {
 pub mod events {
     use web3::ethabi::{Event, EventParam, ParamType};
 
-    // pub fn erc_20_burn() -> Event {
-    //     Event {
-    //         name: "Burn".to_string(),
-    //         inputs: vec![
-    //             EventParam {
-    //                 name: "_value".to_string(),
-    //                 kind: ParamType::Uint(256),
-    //                 indexed: true,
-    //             }
-    //         ],
-    //         anonymous: false,
-    //     }
-    // }
-
     pub fn erc_20_transfer() -> Event {
         Event {
             name: "Transfer".to_string(),
