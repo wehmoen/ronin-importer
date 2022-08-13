@@ -15,11 +15,8 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Fix tx import error">
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Use unordered insert many for pool commits">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/contracts.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/contracts.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/leaderboard-analyse.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leaderboard-analyse.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,6 +185,8 @@
       <workItem from="1659867738950" duration="593000" />
       <workItem from="1659888408426" duration="1040000" />
       <workItem from="1659943005239" duration="4604000" />
+      <workItem from="1659987962518" duration="1316000" />
+      <workItem from="1660053498012" duration="3499000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -434,7 +433,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659962657585</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="Use unordered insert many for pool commits">
+      <created>1659988074862</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1659988074862</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -453,7 +459,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Avoid duplicate import" />
     <MESSAGE value="Fix block increase" />
     <MESSAGE value="Create all indexes at launch" />
     <MESSAGE value="process block by block while importing axie transfers" />
@@ -478,7 +483,8 @@
     <MESSAGE value="Add health report to all tools&#10;remove bearer token auth from leaderboard" />
     <MESSAGE value="fix health service name" />
     <MESSAGE value="Fix tx import error" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix tx import error" />
+    <MESSAGE value="Use unordered insert many for pool commits" />
+    <option name="LAST_COMMIT_MESSAGE" value="Use unordered insert many for pool commits" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

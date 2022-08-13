@@ -203,6 +203,7 @@ pub mod types {
         Moonshard,
         Feature_Mailbox,
         Feature_News,
+        Slp
     }
 
     #[derive(Serialize, Deserialize, Debug)]
