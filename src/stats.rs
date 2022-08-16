@@ -61,7 +61,7 @@ async fn main() {
 
         block = block + 1;
 
-        if stats.len() >= 10000 {
+        if stats.len() >= 10000 || block >= chain_head {
             block_stats.insert_many(
                 &stats,
                 InsertManyOptions::builder().ordered(false).build(),
