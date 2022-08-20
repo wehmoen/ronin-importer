@@ -15,7 +15,7 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="commit block stats when chain head is reached">
+    <list default="true" id="b6a57f8b-d039-4095-9def-0ac8fa8a1186" name="Changes" comment="Remove break at loop end">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/leaderboard-tracer.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/leaderboard-tracer.rs" afterDir="false" />
     </list>
@@ -192,7 +192,7 @@
       <workItem from="1660422792694" duration="1359000" />
       <workItem from="1660527720794" duration="9199000" />
       <workItem from="1660678148191" duration="4822000" />
-      <workItem from="1661012803100" duration="2879000" />
+      <workItem from="1661012803100" duration="4141000" />
     </task>
     <task id="LOCAL-00001" summary="Initial Commit">
       <created>1657130652940</created>
@@ -467,7 +467,21 @@
       <option name="project" value="LOCAL" />
       <updated>1660692234164</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="add post health update log line">
+      <created>1661016918311</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1661016918311</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Remove break at loop end">
+      <created>1661017049310</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1661017049310</updated>
+    </task>
+    <option name="localTasksCounter" value="42" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -486,8 +500,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
-    <MESSAGE value="Avoid crashing due to duplicate transfer_id" />
-    <MESSAGE value="add log for empty blocks" />
     <MESSAGE value="Update readme&#10;rename package to &quot;ronin-to-mongo&quot;&#10;rename &quot;rimport3&quot; binary to &quot;transactions&quot;&#10;added % progress to &quot;axie-transfer&quot;" />
     <MESSAGE value="Update readme&#10;rename package to &quot;ronin-to-mongo&quot;&#10;rename &quot;rimport3&quot; binary to &quot;transactions&quot;&#10;added % progress to &quot;axie-transfer&quot;&#10;add support for http and ws web3 transport to transactions" />
     <MESSAGE value="add battle log importer and various typings" />
@@ -511,7 +523,9 @@
     <MESSAGE value="add slp reward to battle log analyser" />
     <MESSAGE value="add block stats" />
     <MESSAGE value="commit block stats when chain head is reached" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit block stats when chain head is reached" />
+    <MESSAGE value="add post health update log line" />
+    <MESSAGE value="Remove break at loop end" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove break at loop end" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -63,7 +63,7 @@ async fn main() {
 
     println!("Added {} battle logs to the database!", new_inserts);
 
-    db.update_health(String::from("battlelog-analyser"));
+    // db.update_health(String::from("battlelog-analyser"));
 
     println!("Execution complete. Exiting.")
 }
