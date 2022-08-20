@@ -18,7 +18,6 @@ async fn main() {
 
     let leaderboard: Vec<LeaderboardItem> = leaderboard::get_leaderboard_page(1).await;
 
-
     let db = MongoDb::new(Options { client_uri: "mongodb://127.0.0.1".to_string(), database: "ronin".to_string() }).await;
 
     let collection: Collection<PVPBattleLog> = db.database.collection::<PVPBattleLog>("pvpbattlelogs");
@@ -49,8 +48,8 @@ async fn main() {
 
         items_to_insert.append(&mut battles);
 
-        println!("Battles: {}\n====================", battles.len())
-
+        println!("Battles: {}\n====================", battles.len());
+break;
     }
 
     let count_before = collection.count_documents(None, None).unwrap();
@@ -65,4 +64,6 @@ async fn main() {
     println!("Added {} battle logs to the database!", new_inserts);
 
     db.update_health(String::from("battlelog-analyser"));
+
+    println!("Execution complete. Exiting.")
 }
