@@ -49,7 +49,7 @@ async fn main() {
         items_to_insert.append(&mut battles);
 
         println!("Battles: {}\n====================", battles.len());
-break;
+
     }
 
     let count_before = collection.count_documents(None, None).unwrap();
